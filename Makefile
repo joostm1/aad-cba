@@ -1,4 +1,4 @@
-# pki.Makefile
+# Makefile
 
 # run this as 
 #		make ORG="XYZ9" UPN=joost@xyz9.net
