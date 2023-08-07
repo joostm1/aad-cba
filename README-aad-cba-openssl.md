@@ -59,12 +59,13 @@ Azure requires the CA certificate to be in PEM format with a `.cer` file extensi
 
     openssl x509 -in XYZ9/certs/cacer.PEM -inform PEM -out XYZ9/certs/cacer.cer -outform DER
 
-This CA in DER format,  `XYZ9/certs/cacer.cer` is the one that must be configured in AAD | Security | Certificate authorities. See the [next](README-aad-cba.md) for that.
+This CA in DER format,  `XYZ9/certs/cacer.cer` is the one that must be configured in AAD | Security | Certificate authorities. 
+See the [next](README-aad-cba.md) chapter for that.
 
 If we get details from this CA we see:
 
-> openssl x509 -in XYZ9/certs/cacer.cer -noout -text
-> Certificate:
+>   openssl x509 -in XYZ9/certs/cacer.cer -noout -text
+>   Certificate:
 >     Data:
 >        Version: 3 (0x2)
 >         Serial Number:
