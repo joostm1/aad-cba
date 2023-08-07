@@ -31,10 +31,12 @@ Provide your organisation name and your UPN on this commandline.
 
 ### Here's a run in my world with explanation:
 
-My organisation name is XYZ9 and my UPN is joost@xyz9.net, so I do:
+My organization name is XYZ9 and my UPN is joost@xyz9.net, so I do:
 
     cd aad-cba
     make ORG=XYZ9 UPN=joost@xyz9.net
+_____
+### Certificate Authority
 
 First thing created is a key for the CA certificate:
 
@@ -55,54 +57,74 @@ The ca_ext section in [config](ORG-CA.cnf) file states that it is a CA and it's 
     keyUsage                = critical,keyCertSign,cRLSign
     subjectKeyIdentifier    = hash
 
-Azure requires the CA certificate to be in PEM format with a `.cer` file extension, so we convert it:
+Azure requires the CA certificate to be in DER format with a `.cer` file extension, so we convert it:
 
     openssl x509 -in XYZ9/certs/cacer.PEM -inform PEM -out XYZ9/certs/cacer.cer -outform DER
 
-This CA in DER format,  `XYZ9/certs/cacer.cer` is the one that must be configured in AAD | Security | Certificate authorities. 
+This CA in DER format, `XYZ9/certs/cacer.cer` is the file that must be configured in 
+	`AAD | Security | Certificate authorities.`
 See the [next](README-aad-cba.md) chapter for that.
+
+This CA is also the one that must be used to sign subsequent user certificates.
 
 If we get details from this CA we see:
 
->   openssl x509 -in XYZ9/certs/cacer.cer -noout -text
->   Certificate:
->     Data:
->        Version: 3 (0x2)
->         Serial Number:
->            2b:96:a0:f0:78:bd:06:1c:4b:df:4f:58:92:9a:e3:80:6a:35:9b:71
->        Signature Algorithm: sha256WithRSAEncryption
->        Issuer: C = NL, O = XYZ9, CN = XYZ9 root CA
->        Validity
->            Not Before: Aug  7 14:58:08 2023 GMT
->            Not After : Aug  4 14:58:08 2033 GMT
->        Subject: C = NL, O = XYZ9, CN = XYZ9 root CA
->        Subject Public Key Info:
->            Public Key Algorithm: rsaEncryption
->                Public-Key: (2048 bit)
->                Modulus:
->                    a3:31:fc:04:8e:52:cb:c2:86:06:6c:02:e4:12:50:
->                    ..
->                Exponent: 65537 (0x10001)
->        X509v3 extensions:
->            X509v3 Basic Constraints: critical
->                CA:TRUE
->            X509v3 Key Usage: critical
->                Certificate Sign, CRL Sign
->            X509v3 Subject Key Identifier:
->                DB:BE:F9:2C:12:05:57:FF:48:AA:50:24:64:5C:B6:99:52:20:38:42
->    Signature Algorithm: sha256WithRSAEncryption
->    Signature Value:
->        07:61:1b:3c:cd:e8:e4:57:9f:88:93:3f:e2:4a:90:30:96:5d:
+	openssl x509 -in XYZ9/certs/cacer.cer -noout -text
+	Certificate:
+	    Data:
+        	Version: 3 (0x2)
+        	Serial Number:
+	            2b:96:a0:f0:78:bd:06:1c:4b:df:4f:58:92:9a:e3:80:6a:35:9b:71
+        	Signature Algorithm: sha256WithRSAEncryption
+        	Issuer: C = NL, O = XYZ9, CN = XYZ9 root CA
+        	Validity
+	            Not Before: Aug  7 14:58:08 2023 GMT
+            	Not After : Aug  4 14:58:08 2033 GMT
+        	Subject: C = NL, O = XYZ9, CN = XYZ9 root CA
+        	Subject Public Key Info:
+	            Public Key Algorithm: rsaEncryption
+                	Public-Key: (2048 bit)
+                	Modulus:
+                    8b:73:88:1e:1f:02:6d:e3:ed:85:46:e7:9b:1a:a7:
+                    d8:5f
+                	Exponent: 65537 (0x10001)
+        	X509v3 extensions:
+            	X509v3 Basic Constraints: critical
+	                CA:TRUE
+    	        X509v3 Key Usage: critical
+        	        Certificate Sign, CRL Sign
+            	X509v3 Subject Key Identifier:
+                	DB:BE:F9:2C:12:05:57:FF:48:AA:50:24:64:5C:B6:99:52:20:38:42
+    	Signature Algorithm: sha256WithRSAEncryption
+    	Signature Value:
+        07:61:1b:3c:cd:e8:e4:57:9f:88:93:3f:e2:4a:90:30:96:5d:
 
+______
+### User certificate
 
+A key for the certificate is generated first:
 
     openssl genpkey -config 'XYZ9/XYZ9-CR.cnf' -out XYZ9/private/joost@xyz9.net-key.PEM -outform PEM \
         -algorithm RSA
       Using configuration from XYZ9/XYZ9-CR.cnf
       .........+.+..+.........+...+......+....+...+.....+...+....+...+.....+....+...........+...+.
 
+Secondly, a sign request is created using this [configuration file](ORG-CR.cnf):
+
     openssl req -config 'XYZ9/XYZ9-CR.cnf' -new -reqexts cr_ext -outform PEM \
         -key XYZ9/private/joost@xyz9.net-key.PEM -out XYZ9/certs/joost@xyz9.net-csr.PEM
+
+The below section from the [configuration file](ORG-CR.cnf) specifies the x509 extensions to be used in the certificate. 
+
+	[ cr_ext ]
+	basicConstraints = CA:false
+	keyUsage = digitalSignature
+	extendedKeyUsage = serverAuth, clientAuth, msSmartcardLogin
+	subjectAltName = otherName:1.3.6.1.4.1.311.20.2.3;UTF8:${ENV::UPN}
+
+Note how subjectAltName is populated via otherName with a PrincipalName and the value of the specified UPN [see RFC 8380](https://www.ietf.org/rfc/rfc3280.txt)
+
+
 
     openssl x509 -req -extfile 'XYZ9/XYZ9-CR.cnf' -extensions cr_ext -days 365 \
         -in XYZ9/certs/joost@xyz9.net-csr.PEM -CA XYZ9/certs/cacer.PEM -CAkey XYZ9/private/cakey.PEM \
