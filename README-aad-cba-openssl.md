@@ -29,21 +29,33 @@
 
 Provide your organisation name and your UPN on this commandline. 
 
-#### Here's a run in my world:
+#### Here's a run in my world with explanation:
 
-    **cd aa-cba**
-    **make ORG=XYZ9 UPN=joost@xyz9.net**
-    mkdir -p XYZ9 XYZ9/certs XYZ9/private
-    chmod 700 XYZ9/private
-    cp ORG-CA.cnf 'XYZ9/XYZ9-CA.cnf'
-    cp ORG-CR.cnf 'XYZ9/XYZ9-CR.cnf'
+My organisation name is XYZ9 and my UPN is joost@xyz9.net, so I do:
+
+    cd aad-cba
+    make ORG=XYZ9 UPN=joost@xyz9.net
+
+First thing to create a key for the CA certificate:
+
     openssl genpkey -config 'XYZ9/XYZ9-CA.cnf' -out XYZ9/private/cakey.PEM -outform PEM \
       -algorithm RSA
       Using configuration from XYZ9/XYZ9-CA.cnf
       +........+....+.................
-    
+
+With this key, a new selfsigned certificate is created with a lifetime of 10 years:
+
     openssl req -config 'XYZ9/XYZ9-CA.cnf' -x509 -days 3650 -reqexts ca_ext \
         -outform PEM -key XYZ9/private/cakey.PEM -out XYZ9/certs/cacer.PEM
+
+The ca_ext section in [config](ORG-CA.cnf) file states that it is a CA and it's intended use to sign other stuff:
+
+    [ ca_ext ]
+    basicConstraints        = critical,CA:true
+    keyUsage                = critical,keyCertSign,cRLSign
+    subjectKeyIdentifier    = hash
+
+
 
     openssl x509 -in XYZ9/certs/cacer.PEM -inform PEM -out XYZ9/certs/cacer.DER -outform DER
 
