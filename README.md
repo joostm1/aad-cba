@@ -6,7 +6,7 @@ This is an attractive authentication method as it combines a good (passwordless)
 
 This repo contains some tools and tutorial for enabling CBA in Azure AD. It is dived in three parts:
 
-1. [Generating certficates using openssl](README-aad-cba-openssl.md).
+1. [Generating certificates using openssl](README-aad-cba-openssl.md).
 2. [Enabling CBA in AAD](README-aad-cba.md).
 3. Authenticate in AAD with a [certifcate on a Yubikey 5 series](README-aad-cba-yubikey5.md).
 
