@@ -1,15 +1,15 @@
 # Generating certificates with openssl.
 
-CBA in Azure AD has this basic flow:
+CBA in Azure AD has this basic certificate requirements:
 
-**- Users authenticate with a certificate that:**
+**Users authenticate with a certificate that:**
 
-    - provides the user's identity
-    - is signed by *a certain certificate authority (CA)*.
+- provides the user's identity
+- is signed by _a certain certificate authority (CA)_.
 
-**- Azure AD verifies the user's identity by:**
+**Azure AD verifies the user's identity by:**
 
-    - verifying that the requesting (user) certificate is signed by *a certain CA*.
-    - mapping the requesting (user) certificate to a user.
+- verifying that the requesting (user) certificate is signed by _a certain CA_.
+- mapping the requesting (user) certificate to a user.
 
-    
+
