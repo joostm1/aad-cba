@@ -19,13 +19,14 @@
 
 #### Let's create this _certain_ CA as well as the user certificate.
 
-Clone this aad-cba thing to your local workspace:
+*Clone this aad-cba thing to your local workspace:*
 
     git clone git@github.com:joostm1/aad-cba.git
 
-
 Create both the CA and the user certificate. 
+
     make ORG=_YOURORG_ UPN=_name@domain.com_
+
 Provide your organisation name and your UPN on this commandline. 
 
 Here's a run in my world:
