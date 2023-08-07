@@ -26,7 +26,7 @@ CONFCR		:= '$(ORG)/$(ORG)-CR.cnf'
 # files for the CA
 CAKEY		:= $(ORG)/private/cakey.$(FORM)
 CACER		:= $(ORG)/certs/cacer.$(FORM)
-CACERDER 	:= $(ORG)/certs/cacer.$(FORMDER)
+CACERDER 	:= $(ORG)/certs/cacer.cer
 
 # files for the user certificate
 UCER		:= $(ORG)/certs/$(UPN)-cer.$(FORM)
