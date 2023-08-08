@@ -125,6 +125,7 @@ The below section from the [configuration file](ORG-CR.cnf) specifies the x509 e
 
 Note how subjectAltName is populated via otherName with a [User Pricipal Name](https://oidref.com/1.3.6.1.4.1.311.20.2.3).
 See [RFC 3280](https://www.ietf.org/rfc/rfc3280.txt) for the encoding.
+See [this](https://learn.microsoft.com/en-us/troubleshoot/windows-server/windows-security/enabling-smart-card-logon-third-party-certification-authorities) document for certificate requirements.
 
 
 The request is signed by the CA
