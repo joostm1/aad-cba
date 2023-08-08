@@ -1,7 +1,7 @@
 # Generating certificates with openssl.
 
 
-**Users authenticate with a certificate that:**
+**In Azure AD, users authenticate with a certificate that:**
 
 - provides the user's identity, i.e., the user principal name.
 
@@ -13,8 +13,9 @@
 
 - the ability to map the requesting user certificate to a user.
 
+The goal of this `aad-cba repo` is to provide these certificates with openssl in order to spread 'good' authentication, so that it is easy AND safe to use.
 ____
-#### Let's create this _certain_ CA as well as the user certificate.
+**Let's create this _certain_ CA as well as the user certificate.**
 
 Clone this aad-cba thing to your local workspace:
 
