@@ -127,13 +127,15 @@ Note how subjectAltName is populated via otherName with a [User Pricipal Name](h
 See [RFC 3280](https://www.ietf.org/rfc/rfc3280.txt) for the encoding.
 
 
+The request is signed by the CA
 
     openssl x509 -req -extfile 'XYZ9/XYZ9-CR.cnf' -extensions cr_ext -days 365 \
         -in XYZ9/certs/joost@xyz9.net-csr.PEM -CA XYZ9/certs/cacer.PEM -CAkey XYZ9/private/cakey.PEM \
         -out XYZ9/certs/joost@xyz9.net-cer.PEM
     Certificate request self-signature ok
     subject=C = NL, O = XYZ9, CN = joost@xyz9.net
-        
+
+
     openssl pkcs12 -export -inkey XYZ9/private/joost@xyz9.net-key.PEM \
         -in XYZ9/certs/joost@xyz9.net-cer.PEM \
         -name "joost@xyz9.net" -out XYZ9/certs/joost@xyz9.net.PFX
