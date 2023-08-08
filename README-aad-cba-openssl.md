@@ -4,19 +4,19 @@
 
 ### CBA in Azure AD has this basic certificate requirements:
 
-	#### Users authenticate with a certificate that:
+#### Users authenticate with a certificate that:
 
-		- provides the user's identity, i.e., the user principal name.
+- provides the user's identity, i.e., the user principal name.
 
-		- is signed by _a certain_ certificate authority (CA).
+- is signed by _a certain_ certificate authority (CA).
 
-	#### Azure AD verifies the user's identity by:
+#### Azure AD verifies the user's identity by:
 
-		- verifying that the requesting (user) certificate is signed by _a certain_ CA.
+- verifying that the requesting (user) certificate is signed by _a certain_ CA.
 
-		- mapping the requesting (user) certificate to a user.
+- mapping the requesting (user) certificate to a user.
 
-
+____
 #### Let's create this _certain_ CA as well as the user certificate.
 
 **Clone this aad-cba thing to your local workspace:**
@@ -25,17 +25,18 @@
 
 **Create both the CA and the user certificate:**
 
-    make ORG=*YOURORG* UPN=*yourname@yourdomain.com*
+
+make ORG=*YOURORG* UPN=*yourname@yourdomain.com*
 
 Provide your organisation name and your UPN on this commandline. 
-
+____
 ### Here's a run in my world with explanation:
 
 My organization name is XYZ9 and my UPN is joost@xyz9.net, so I do:
 
     cd aad-cba
-    make ORG=XYZ9 UPN=joost@xyz9.net
-_____
+	make ORG=XYZ9 UPN=joost@xyz9.net
+
 ### Certificate Authority
 
 First thing created is a key for the CA certificate:
