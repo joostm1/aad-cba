@@ -1,20 +1,17 @@
 # Generating certificates with openssl.
 
 
-
-### CBA in Azure AD has this basic certificate requirements:
-
-#### Users authenticate with a certificate that:
+**Users authenticate with a certificate that:**
 
 - provides the user's identity, i.e., the user principal name.
 
 - is signed by _a certain_ certificate authority (CA).
 
-#### Azure AD verifies the user's identity by:
+**Azure AD verifies the user's identity by:**
 
-- verifying that the requesting (user) certificate is signed by _a certain_ CA.
+- verifying that the requesting user certificate is signed by _a certain_ CA.
 
-- mapping the requesting (user) certificate to a user.
+- the ability to map the requesting user certificate to a user.
 
 ____
 #### Let's create this _certain_ CA as well as the user certificate.
@@ -100,6 +97,7 @@ If we get details from this CA we see:
     	Signature Value:
         07:61:1b:3c:cd:e8:e4:57:9f:88:93:3f:e2:4a:90:30:96:5d:
 
+Now that we have the CA, we can create a user certificate and sign it with this CA key.
 ______
 ### User certificate
 
