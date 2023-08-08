@@ -125,10 +125,11 @@ The below section from the [configuration file](ORG-CR.cnf) specifies the x509 e
 
 Note how subjectAltName is populated via otherName with a [User Pricipal Name](https://oidref.com/1.3.6.1.4.1.311.20.2.3).
 See [RFC 3280](https://www.ietf.org/rfc/rfc3280.txt) for the encoding.
+
 See [this](https://learn.microsoft.com/en-us/troubleshoot/windows-server/windows-security/enabling-smart-card-logon-third-party-certification-authorities) document for certificate requirements.
 
 
-The request is signed by the CA
+The request is signed by the CA:
 
     openssl x509 -req -extfile 'XYZ9/XYZ9-CR.cnf' -extensions cr_ext -days 365 \
         -in XYZ9/certs/joost@xyz9.net-csr.PEM -CA XYZ9/certs/cacer.PEM -CAkey XYZ9/private/cakey.PEM \
@@ -136,15 +137,14 @@ The request is signed by the CA
     Certificate request self-signature ok
     subject=C = NL, O = XYZ9, CN = joost@xyz9.net
 
+And the user certificate, including it's private key, is bundled in a password protected pfx file. 
+This file is to be placed on the user's smart card.
 
     openssl pkcs12 -export -inkey XYZ9/private/joost@xyz9.net-key.PEM \
         -in XYZ9/certs/joost@xyz9.net-cer.PEM \
         -name "joost@xyz9.net" -out XYZ9/certs/joost@xyz9.net.PFX
     Enter Export Password:
     Verifying - Enter Export Password:
-
-
-
 
 
 
