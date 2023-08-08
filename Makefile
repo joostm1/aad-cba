@@ -36,7 +36,9 @@ UCERPFX		:= $(ORG)/certs/$(UPN).$(FORMPFX)
 
 $(UCERPFX): $(UCER)
 	openssl pkcs12 -export -inkey $(UCERKEY) -in $(UCER) \
-		-name "$(UPN)" -out $(UCERPFX)
+		-name "$(UPN)" -out $(UCERPFX) 
+	@echo "Share $(UCERPFX) with $(UPN)." 
+	@echo "Configure $(CACERDER) as a certificate authority in Azure AD."
 
 $(UCER): $(UCSR) $(CACER)
 	openssl x509 -req -extfile $(CONFCR) -extensions cr_ext -days 365 \
