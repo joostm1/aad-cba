@@ -123,7 +123,8 @@ The below section from the [configuration file](ORG-CR.cnf) specifies the x509 e
 	extendedKeyUsage = serverAuth, clientAuth, msSmartcardLogin
 	subjectAltName = otherName:1.3.6.1.4.1.311.20.2.3;UTF8:${ENV::UPN}
 
-Note how subjectAltName is populated via otherName with a PrincipalName and the value of the specified UPN [see RFC 8380](https://www.ietf.org/rfc/rfc3280.txt)
+Note how subjectAltName is populated via otherName with a [User Pricipal Name](https://oidref.com/1.3.6.1.4.1.311.20.2.3).
+See [RFC 3280](https://www.ietf.org/rfc/rfc3280.txt) for the encoding.
 
 
 
