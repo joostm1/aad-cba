@@ -1,4 +1,4 @@
-# Generating certificates with openssl.
+# Generating CBA certificates with openssl.
 
 
 **In Azure AD, users authenticate with a certificate that:**
@@ -13,7 +13,7 @@
 
 - the ability to map the requesting user certificate to a user.
 
-The goal of this `aad-cba repo` is to provide these certificates with openssl in order to spread 'good' authentication, so that it is easy AND safe to use.
+The goal of this `aad-cba` repo is to make it easy to have authentication that it is easy AND safe to use.
 ____
 **Let's create this _certain_ CA as well as the user certificate.**
 
@@ -24,7 +24,7 @@ Clone this aad-cba thing to your local workspace:
 Create both the CA and the user certificate:
 
 
-	make ORG=*YOURORG* UPN=*yourname@yourdomain.com*
+	make ORG=YOURORG UPN=yourname@yourdomain.com
 
 Provide your organisation name and your UPN on this commandline. 
 ____
