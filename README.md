@@ -159,4 +159,4 @@ At this point we have created:
  
 `XYZ9/certs/joost@xyz9.net.PFX` that needs to go on a Yubikey.
 
-Let's continue with adding CBA as an athentication option in Entra ID.
+Let's continue with adding `XYZ9/certs/cacer.cer` to Entra ID to enable the CBA option.
