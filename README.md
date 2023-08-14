@@ -62,7 +62,7 @@ With this key, a new selfsigned certificate is created with a lifetime of 10 yea
 	openssl req -config 'XYZ9/XYZ9-CA.cnf' -x509 -days 3650 -reqexts ca_ext \
         	-outform PEM -key XYZ9/private/cakey.PEM -out XYZ9/certs/cacer.PEM
 
-The ca_ext section in [config](ORG-CA.cnf) file states that it is a CA and it's intended use to sign other stuff:
+The `ca_ext` section in [config](ORG-CA.cnf) file states that it is a CA and it's intended use to sign other stuff:
 
 	[ ca_ext ]
 	basicConstraints        = critical,CA:true
@@ -113,11 +113,11 @@ Now that we have the CA, we can create a user certificate and sign it with this 
 ______
 ### User certificate
 
-A key for the certificate is generated first:
+A key for the user certificate is generated first:
 
 	openssl genpkey -config 'XYZ9/XYZ9-CR.cnf' -out XYZ9/private/joost@xyz9.net-key.PEM -outform PEM -algorithm RSA
 
-Secondly, a sign request is created using this [configuration file](ORG-CR.cnf):
+Secondly, a sign request is created using the `cr_ext` section of this [configuration file](ORG-CR.cnf):
 
 	openssl req -config 'XYZ9/XYZ9-CR.cnf' -new -reqexts cr_ext -outform PEM \
 	        -key XYZ9/private/joost@xyz9.net-key.PEM -out XYZ9/certs/joost@xyz9.net-csr.PEM
@@ -155,6 +155,8 @@ This file is to be placed on the user's smart card.
 
 At this point we have created:
 	`XYZ9/certs/cacer.cer` that needs to go into Entra ID and we have 
+
+ 
  	`XYZ9/certs/joost@xyz9.net.PFX` that needs to go on a Yubikey.
 
-Let's continue with Entra ID.
+Let's continue with adding CBA as an athentication option in Entra ID.
