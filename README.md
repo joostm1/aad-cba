@@ -1,34 +1,35 @@
-# Tools and tutorial for Certifcate Based Authentication (CBA) in Azure AD.
+# Tools and tutorial for Certifcate Based Authentication (CBA) in Entra ID.
 ## using [openssl](https://www.openssl.org/) and a [Yubikey 5](https://www.yubico.com/products/yubikey-5-overview/).
 
-One of the authentication methods in Azure AD is [Certificate-based authentication](https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-certificate-based-authentication).
-This is an attractive authentication method as it combines a good (passwordless) user experience with good security.
+One of the authentication methods in Enrea ID is [Certificate-based authentication](https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-certificate-based-authentication).
+This is attractive as it combines a good passwordless user experience with good security.
 
-This repo contains some tools and tutorial for enabling CBA in Azure AD. It is divided in three parts:
+This repo contains some tools and tutorial for enabling CBA in Azure AD using openssl and a yubikey 5.
+It is divided in 3 parts:
 
-1. [Generating certificates using openssl](README-aad-cba-openssl.md).
-2. [Enabling CBA in AAD](README-aad-cba.md).
-3. Authenticate in AAD with a [certifcate on a Yubikey 5 series](README-aad-cba-yubikey5.md).
-
-
-
-
-# Generating CBA certificates with openssl.
+1. Creating the certificates using openssl.
+2. Enable CBA in Entra ID.
+3. Using a Yubikey as a smartcard.
 
 
-**In Azure AD, users authenticate with a certificate that:**
+# 1. Generating CBA certificates with openssl.
+
+
+**In Entra ID, users authenticate with a certificate that:**
 
 - provides the user's identity, i.e., the user principal name.
 
 - is signed by _a certain_ certificate authority (CA).
 
-**Azure AD verifies the user's identity by:**
+**Entra ID verifies the user's identity by:**
 
 - verifying that the requesting user certificate is signed by _a certain_ CA.
 
 - the ability to map the requesting user certificate to a user.
 
-The goal of this `aad-cba` repo is to make it easy to have authentication that it is easy AND safe to use.
+
+The goal of this `aad-cba` repo is to help you starting with CBA.
+
 ____
 **Let's create this _certain_ CA as well as the user certificate.**
 
