@@ -155,8 +155,8 @@ This file is to be placed on the user's smart card.
 
 At this point we have created:
 
-	`XYZ9/certs/cacer.cer` that needs to go into Entra ID and we have 
+`XYZ9/certs/cacer.cer` that needs to go into Entra ID and we have 
  
- 	`XYZ9/certs/joost@xyz9.net.PFX` that needs to go on a Yubikey.
+`XYZ9/certs/joost@xyz9.net.PFX` that needs to go on a Yubikey.
 
 Let's continue with adding CBA as an athentication option in Entra ID.
