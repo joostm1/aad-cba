@@ -121,7 +121,7 @@ Secondly, a sign request is created using this [configuration file](ORG-CR.cnf):
 	openssl req -config 'XYZ9/XYZ9-CR.cnf' -new -reqexts cr_ext -outform PEM \
 	        -key XYZ9/private/joost@xyz9.net-key.PEM -out XYZ9/certs/joost@xyz9.net-csr.PEM
 
-The below section from the [configuration file](ORG-CR.cnf) specifies the x509 extensions to be used in the certificate. 
+The below section from the [configuration file](ORG-CR.cnf) specifies the `cr_ext` x509 extensions to be used in the certificate. 
 
 	[ cr_ext ]
 	basicConstraints = CA:false
@@ -130,6 +130,7 @@ The below section from the [configuration file](ORG-CR.cnf) specifies the x509 e
 	subjectAltName = otherName:1.3.6.1.4.1.311.20.2.3;UTF8:${ENV::UPN}
 
 Note how subjectAltName is populated via otherName with a [User Pricipal Name](https://oidref.com/1.3.6.1.4.1.311.20.2.3).
+
 See [RFC 3280](https://www.ietf.org/rfc/rfc3280.txt) for the encoding of the subjectAltName.
 
 See [this](https://learn.microsoft.com/en-us/troubleshoot/windows-server/windows-security/enabling-smart-card-logon-third-party-certification-authorities) dated document for certificate requirements.
