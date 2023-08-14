@@ -1,5 +1,6 @@
-# Tools and tutorial for Certifcate Based Authentication (CBA) in Entra ID.
+# Tools and tutorial for Certifcate Based Authentication (CBA) in Entra ID
 ## using [openssl](https://www.openssl.org/) and a [Yubikey 5](https://www.yubico.com/products/yubikey-5-overview/).
+
 
 One of the authentication methods in Enrea ID is [Certificate-based authentication](https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-certificate-based-authentication).
 This is attractive as it combines a good passwordless user experience with good security.
@@ -12,7 +13,7 @@ It is divided in 3 parts:
 3. Using a Yubikey as a smartcard.
 
 
-# 1. Generating CBA certificates with openssl.
+# 1. Creating the certificates with openssl
 
 
 **In Entra ID, users authenticate with a certificate that:**
@@ -35,7 +36,7 @@ ____
 
 Clone this `aad-cba` thing to your local workspace:
 
-    git clone git@github.com:joostm1/aad-cba.git
+	git clone git@github.com:joostm1/aad-cba.git
 
 Create both the CA and the user certificate:
 
