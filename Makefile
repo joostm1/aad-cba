@@ -8,8 +8,8 @@
 #	https://goodworkaround.com/2022/02/15/digging-into-azure-ad-certificate-based-authentication/
 #	https://gist.github.com/Soarez/9688998
 #	https://www.feistyduck.com/library/openssl-cookbook/online/
-#
-# =v= I thank you brave writers!
+# =v=
+# I thank you brave writers
 
 # openssl output formats
 FORMPEM		:= PEM
@@ -46,7 +46,7 @@ $(UCERPFX): $(UCER)
 	@echo "Share $(UCERPFX) with $(UPN)." 
 	@echo "Configure $(CACERDER) as a certificate authority in Azure AD."
 
-# Sign the user certificste with the CA key
+# Sign the user certificate with the CA key
 $(UCER): $(UCSR) $(CACER)
 	openssl x509 -req -extfile $(CONFCR) -extensions cr_ext -days 365 \
 		-in $(UCSR) -CA $(CACER) -CAkey $(CAKEY) -out $(UCER)
